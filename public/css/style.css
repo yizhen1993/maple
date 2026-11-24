@@ -1,0 +1,347 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+body, html {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: #7ec0ee;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+#canvas-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+/* Classic MapleStory HUD & Overlays */
+#ui-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* Interactive elements inside UI Layer */
+.interactive {
+  pointer-events: auto;
+}
+
+/* Mini-Map Window */
+#minimap-window {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  background: rgba(18, 28, 45, 0.9);
+  border: 2px solid #5a7b9e;
+  border-radius: 6px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+.window-header {
+  background: linear-gradient(180deg, #38608a 0%, #1c3c62 100%);
+  color: #f0f6ff;
+  font-size: 11px;
+  font-weight: bold;
+  padding: 4px 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #5a7b9e;
+}
+
+#minimap-canvas {
+  display: block;
+}
+
+/* Top Right Controls */
+#top-controls {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: flex;
+  gap: 10px;
+}
+
+.maple-btn {
+  background: linear-gradient(180deg, #ffd34d 0%, #f0a500 100%);
+  color: #2b1f09;
+  border: 2px solid #332205;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  transition: transform 0.1s, filter 0.1s;
+}
+
+.maple-btn:hover {
+  filter: brightness(1.1);
+}
+
+.maple-btn:active {
+  transform: translateY(2px);
+}
+
+.maple-btn.muted {
+  background: linear-gradient(180deg, #aaaaaa 0%, #666666 100%);
+  color: #eeeeee;
+}
+
+/* Bottom Status Bar (Classic MapleStory HUD) */
+#bottom-hud {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 64px;
+  background: linear-gradient(180deg, #3d4554 0%, #1e2430 100%);
+  border-top: 3px solid #75869e;
+  box-shadow: 0 -3px 12px rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  color: #ffffff;
+  font-size: 12px;
+}
+
+/* Player Info Block */
+.hud-block {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.player-level-badge {
+  background: #f7a800;
+  color: #221400;
+  font-weight: 900;
+  font-size: 13px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: 1px solid #fff;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+}
+
+.player-name {
+  font-weight: 800;
+  font-size: 14px;
+  color: #fff9d6;
+  text-shadow: 1px 1px 2px #000;
+}
+
+/* Gauges Container */
+.gauges-container {
+  display: flex;
+  gap: 16px;
+  flex: 1;
+  max-width: 650px;
+  margin: 0 24px;
+}
+
+.gauge-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.gauge-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  font-weight: bold;
+  text-shadow: 1px 1px 1px #000;
+}
+
+.gauge-track {
+  height: 14px;
+  background: #11141c;
+  border: 1px solid #58697f;
+  border-radius: 3px;
+  overflow: hidden;
+  box-shadow: inset 0 1px 4px rgba(0,0,0,0.8);
+}
+
+.gauge-fill {
+  height: 100%;
+  transition: width 0.2s ease;
+}
+
+.hp-fill {
+  background: linear-gradient(180deg, #ff6b6b 0%, #cc1b1b 100%);
+}
+
+.mp-fill {
+  background: linear-gradient(180deg, #6bb5ff 0%, #1b68cc 100%);
+}
+
+.exp-fill {
+  background: linear-gradient(180deg, #fff06b 0%, #cca31b 100%);
+}
+
+/* Mesos & Cash Shop Block */
+.hud-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.mesos-box {
+  background: #151a24;
+  border: 1px solid #f7c325;
+  border-radius: 4px;
+  padding: 4px 10px;
+  color: #fce881;
+  font-weight: bold;
+  font-size: 13px;
+  text-shadow: 1px 1px 2px #000;
+}
+
+/* Mobile On-Screen Touch Controls */
+#mobile-controls {
+  position: absolute;
+  bottom: 80px;
+  left: 0;
+  width: 100%;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.dpad {
+  display: grid;
+  grid-template-columns: 55px 55px 55px;
+  grid-template-rows: 55px 55px;
+  gap: 6px;
+  pointer-events: auto;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 16px;
+  align-items: flex-end;
+  pointer-events: auto;
+}
+
+.touch-btn {
+  background: rgba(30, 45, 65, 0.75);
+  color: #ffffff;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  font-size: 18px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  touch-action: manipulation;
+}
+
+.touch-btn:active {
+  background: rgba(255, 200, 50, 0.85);
+  color: #222;
+  transform: scale(0.92);
+}
+
+.round-large {
+  width: 68px;
+  height: 68px;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.btn-attack {
+  background: rgba(220, 50, 50, 0.8);
+  border-color: #ff9999;
+}
+
+.btn-jump {
+  background: rgba(40, 140, 240, 0.8);
+  border-color: #99ccff;
+}
+
+/* Modal Instructions */
+#help-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(24, 34, 50, 0.96);
+  border: 3px solid #ffcb36;
+  border-radius: 12px;
+  padding: 24px 30px;
+  color: #ffffff;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.75);
+  max-width: 480px;
+  width: 90%;
+  display: none;
+  z-index: 100;
+  pointer-events: auto;
+}
+
+#help-modal h2 {
+  color: #ffcf40;
+  font-size: 20px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+#help-modal ul {
+  list-style: none;
+  font-size: 14px;
+  line-height: 1.8;
+  margin-bottom: 18px;
+}
+
+#help-modal li {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 4px 0;
+}
+
+.key-tag {
+  background: #3a4b65;
+  color: #ffde7a;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-weight: bold;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  #bottom-hud {
+    height: 72px;
+    padding: 0 8px;
+  }
+  .gauges-container {
+    margin: 0 8px;
+    gap: 8px;
+  }
+  .player-name {
+    display: none;
+  }
+  .mesos-box {
+    font-size: 11px;
+    padding: 3px 6px;
+  }
+}

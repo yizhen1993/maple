@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>MapleStory 3D — Henesys Hunting Ground</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="assets/reference.png" type="image/png">
+</head>
+<body>
+  <!-- 3D WebGL Canvas Viewport -->
+  <div id="canvas-container"></div>
+
+  <!-- UI & Game HUD Layer -->
+  <div id="ui-layer">
+    <!-- Top-Left Mini-Map Window -->
+    <div id="minimap-window" class="interactive">
+      <div class="window-header">
+        <span>MINI MAP</span>
+        <span>Henesys</span>
+      </div>
+      <canvas id="minimap-canvas" width="180" height="95"></canvas>
+    </div>
+
+    <!-- Top-Right Actions -->
+    <div id="top-controls" class="interactive">
+      <button id="btn-sound" class="maple-btn">🔊 Sound: ON</button>
+      <button id="btn-help" class="maple-btn" onclick="toggleHelp()">❓ Controls</button>
+    </div>
+
+    <!-- On-Screen Touch Controls (Mobile) -->
+    <div id="mobile-controls">
+      <div class="dpad">
+        <div></div>
+        <button id="btn-up" class="touch-btn">▲</button>
+        <div></div>
+        <button id="btn-left" class="touch-btn">◀</button>
+        <button id="btn-down" class="touch-btn">▼</button>
+        <button id="btn-right" class="touch-btn">▶</button>
+      </div>
+      <div class="action-buttons">
+        <button id="btn-attack" class="touch-btn round-large btn-attack">ATTACK</button>
+        <button id="btn-jump" class="touch-btn round-large btn-jump">JUMP</button>
+      </div>
+    </div>
+
+    <!-- Bottom Status Bar (Classic MapleStory HUD) -->
+    <div id="bottom-hud">
+      <div class="hud-block">
+        <span id="hud-level" class="player-level-badge">Lv. 25</span>
+        <span class="player-name">Magician Ashtray</span>
+      </div>
+
+      <div class="gauges-container">
+        <!-- HP Gauge -->
+        <div class="gauge-group">
+          <div class="gauge-label">
+            <span>HP</span>
+            <span id="hud-hp-text">[584/584]</span>
+          </div>
+          <div class="gauge-track">
+            <div id="hud-hp-bar" class="gauge-fill hp-fill" style="width: 100%;"></div>
+          </div>
+        </div>
+
+        <!-- MP Gauge -->
+        <div class="gauge-group">
+          <div class="gauge-label">
+            <span>MP</span>
+            <span id="hud-mp-text">[991/991]</span>
+          </div>
+          <div class="gauge-track">
+            <div id="hud-mp-bar" class="gauge-fill mp-fill" style="width: 100%;"></div>
+          </div>
+        </div>
+
+        <!-- EXP Gauge -->
+        <div class="gauge-group">
+          <div class="gauge-label">
+            <span>EXP</span>
+            <span id="hud-exp-text">49.35%</span>
+          </div>
+          <div class="gauge-track">
+            <div id="hud-exp-bar" class="gauge-fill exp-fill" style="width: 49.35%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hud-right">
+        <div id="hud-mesos" class="mesos-box">15,420 Mesos</div>
+        <button class="maple-btn interactive" style="padding: 4px 8px; font-size: 11px;">MENU</button>
+      </div>
+    </div>
+
+    <!-- Instructions / Help Modal -->
+    <div id="help-modal">
+      <h2>🍁 MapleStory 3D Controls 🍁</h2>
+      <ul>
+        <li><span>Move Left / Right:</span> <span class="key-tag">A / D</span> or <span class="key-tag">← / →</span></li>
+        <li><span>Jump:</span> <span class="key-tag">Space</span> or <span class="key-tag">Alt</span></li>
+        <li><span>Attack (Slash):</span> <span class="key-tag">Ctrl</span> or <span class="key-tag">X</span></li>
+        <li><span>Climb Ropes:</span> <span class="key-tag">W / S</span> or <span class="key-tag">↑ / ↓</span></li>
+        <li><span>Drop Down Platform:</span> <span class="key-tag">↓ + Jump</span></li>
+        <li><span>Toggle Sound / Music:</span> <span class="key-tag">M</span></li>
+      </ul>
+      <p style="font-size: 12px; color: #a4b8d1; margin-bottom: 16px; text-align: center;">
+        Hunt Orange Mushrooms & Green Slimes to gain EXP, level up, and collect Mesos!
+      </p>
+      <div style="text-align: center;">
+        <button class="maple-btn" onclick="toggleHelp()">▶ Close & Play</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleHelp() {
+      const modal = document.getElementById('help-modal');
+      modal.style.display = (modal.style.display === 'block') ? 'none' : 'block';
+    }
+  </script>
+
+  <!-- Load Three.js, Models & Game Engine -->
+  <script src="js/vendor/three.min.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/models.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>
