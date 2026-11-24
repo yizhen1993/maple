@@ -468,7 +468,8 @@
 
     // Eyes: Two cute vertical black ovals
     const eyeMat = new THREE.MeshBasicMaterial({ color: 0x111111 });
-    const eyeGeo = new THREE.CapsuleGeometry(0.045, 0.1, 8, 8);
+    const eyeGeo = new THREE.SphereGeometry(0.05, 12, 10);
+    eyeGeo.scale(0.8, 1.8, 0.6);
 
     const leftEye = new THREE.Mesh(eyeGeo, eyeMat);
     leftEye.position.set(-0.14, 0.44, 0.42);
@@ -540,7 +541,6 @@
       emissiveIntensity: 0.2,
       roughness: 0.12,
       transmission: 0.75,
-      thickness: 0.8,
       clearcoat: 1.0,
       clearcoatRoughness: 0.1,
       transparent: true,

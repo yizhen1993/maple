@@ -12,6 +12,8 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=3000
+    volumes:
+      - ./public:/app/public
 
 networks:
   kopipeng-net:
